@@ -1,0 +1,122 @@
+/* ~~~~~~~~~~ ~~~~~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ FONT FAMILY ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~~~~~ ~~~~~~~~~~ */
+@font-face {
+  font-family: "poppinsLight";
+  src: url(./assets/font/Poppins/Poppins-Light.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "poppinsRegular";
+  src: url(./assets/font/Poppins/Poppins-Regular.ttf);
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "poppinsSemiBold";
+  src: url(./assets/font/Poppins/Poppins-SemiBold.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "poppinsBold";
+  src: url(./assets/font/Poppins/Poppins-Bold.ttf);
+  font-style: normal;
+}
+
+/* ~~~~~~~~~~ ~~~~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ALLGEMEIN ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~~~~ ~~~~~~~~~~ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  min-height: 100vh;
+}
+
+body {
+  font-family: var(--poppinsRegular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background-color: var(--lightgrey);
+  color: var(--darkFont);
+}
+
+h1,
+h2 {
+  font-family: var(--poppinsBold);
+}
+
+h3,
+h4 {
+  font-family: var(--poppinsSemiBold);
+}
+
+small {
+  font-family: var(--poppinsLight);
+}
+
+img {
+  user-select: none;
+}
+
+:root {
+  /* ~~~~~ COLOR (VARIABLEN) ~~~~~ */
+  /* ~~~ DEFAULT ~~~ */
+  --white: #fff;
+  --black: #000;
+  --darkgrey: #282c34;
+  --lightgrey: #edeff1;
+  /* ~~~ MAIN ~~~ */
+  --blue: #61dafb;
+
+  /* ~~~~~ TYPOGRAPHY (VARIABLEN) ~~~~~ */
+  /* ~~~ FONT SIZE ~~~ */
+  --xx-small_Font: 10px;
+  --x-small_Font: 12px;
+  --smaller_Font: 14px;
+  --small_Font: 15px;
+
+  --medium_Font: 17.5px;
+
+  --large_Font: 19px;
+  --larger_Font: 24px;
+  --x-large_Font: 32px;
+  --xx-large_Font: 38px;
+
+  /* ~~~ FONT COLOR ~~~ */
+  --darkFont: #13151a;
+  --lightFont: #f1f5fc;
+
+  /* ~~~ FONT FAMILY ~~~ */
+  --poppinsLight: "poppinsLight";
+  --poppinsRegular: "poppinsRegular";
+  --poppinsSemiBold: "poppinsSemiBold";
+  --poppinsBold: "poppinsBold";
+}
+
+/* ~~~~~~~~~~ ~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ HEADER ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~ ~~~~~~~~~~ */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 2.5rem;
+  height: 4rem;
+}
+
+.header .headerNav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: flex-end;
+}
