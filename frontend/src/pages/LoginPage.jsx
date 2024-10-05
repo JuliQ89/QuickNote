@@ -1,19 +1,28 @@
 import React, { useState } from "react";
-
 import { useDispatch } from "react-redux";
-import { getTokenAction } from "../redux/actions/tokenActions";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
 
+  const clearFormData = () => {
+    setFormData({ ...formData, email: "", password: "" });
+  };
+
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(getTokenAction(formData));
+    dispatch({
+      type: "auth/login",
+      payload: formData,
+    });
+    clearFormData();
+    navigate("/");
   };
 
   return (

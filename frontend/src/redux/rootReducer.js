@@ -1,11 +1,9 @@
-import { combineReducers } from "redux";
+import { combineReducers } from "@reduxjs/toolkit";
 
-import { colorData } from "./reducers/colorReducer";
-import { tokenData } from "./reducers/tokenReducer";
+import authReducer from "./auth/authSlice";
 
 const rootReducer = combineReducers({
-  colorData,
-  tokenData,
+  auth: authReducer,
 });
 
 export default rootReducer;

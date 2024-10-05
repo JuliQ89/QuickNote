@@ -1,6 +1,8 @@
+import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
-import PrivateRoutes from "./utils/PrivateRoutes";
+import PrivateRoutes from "./layouts/PrivateRoutes";
 
 import HomePage from "./pages/HomePage";
 import NotePage from "./pages/NotePage";
@@ -9,20 +11,15 @@ import RegisterPage from "./pages/RegisterPage";
 
 import Header from "./components/header/Header";
 
-import { useDispatch, useSelector } from "react-redux";
-import { getColorsAction } from "./redux/actions/colorActions";
-import { useEffect } from "react";
+import { setTokensFromCookies } from "./redux/auth/authSlice";
 
 function App() {
-  const data = useSelector((state) => state.colorData);
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getColorsAction());
-  }, [dispatch]);
 
   useEffect(() => {
-    console.log(data);
-  }, [data]);
+    dispatch(setTokensFromCookies());
+  }, [dispatch]);
+
   return (
     <div className="wrapper">
       <BrowserRouter>
