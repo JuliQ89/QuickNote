@@ -9,18 +9,31 @@ import RegisterPage from "./pages/RegisterPage";
 
 import Header from "./components/header/Header";
 
+import { useDispatch, useSelector } from "react-redux";
+import { getColorsAction } from "./redux/actions/colorActions";
+import { useEffect } from "react";
+
 function App() {
+  const data = useSelector((state) => state.colorData);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getColorsAction());
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
   return (
     <div className="wrapper">
       <BrowserRouter>
         <Header />
         <main className="mainContainer">
           <Routes>
-            <Route path="/" element={<HomePage />} />
+            <Route exact path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route
-              path="/notes/"
+              path="/notes"
               element={
                 <PrivateRoutes>
                   <NotePage />

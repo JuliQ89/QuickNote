@@ -1,17 +1,6 @@
-import React, { useEffect } from "react";
-
-import { axiosInstance } from "../utils/constants";
+import React from "react";
 
 const HomePage = () => {
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axiosInstance.get("/api/colors/");
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
   return (
     <div>
       <h1>Home</h1>
