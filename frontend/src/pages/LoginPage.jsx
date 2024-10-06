@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { login } from "../redux/types";
+
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -17,10 +19,7 @@ const LoginPage = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch({
-      type: "auth/login",
-      payload: formData,
-    });
+    dispatch(login(formData));
     clearFormData();
     navigate("/");
   };

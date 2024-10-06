@@ -1,5 +1,26 @@
-// import Cookies from "js-cookie";
-// import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+
+import { axiosInstance } from "./axios";
+import { setAccessToken, setRefreshToken } from "../redux/auth/authSlice";
+
+import { store } from "../redux/store";
+
+export const refreshAccessToken = () => {
+  const refreshToken = store.getState().auth.refreshToken;
+  try {
+    const response = axiosInstance.post("/api/token/refresh/", {
+      refresh: refreshToken,
+    });
+    if (response.data) {
+      store.dispatch(setAccessToken(response.data?.access));
+      store.dispatch(setRefreshToken(response.data?.refresh));
+      return response.data?.access;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // export const getUser = (access_token) => {
 //   const user = jwtDecode(access_token) ?? null;

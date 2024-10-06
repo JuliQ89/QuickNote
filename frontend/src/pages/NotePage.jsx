@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import axios from "../utils/axios";
+import { axiosInstance } from "../utils/axios";
 
 const NotePage = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await axios.get("/api/notes/");
+        const response = await axiosInstance.get("/api/notes/");
         console.log(response.data);
       } catch (error) {
         console.log(error);
