@@ -14,7 +14,7 @@ const LoginPage = () => {
   });
 
   const validateForm = () => {
-    if (formData.email.trim() == "" || formData.password.trim() == "")
+    if (formData.email.trim() === "" || formData.password.trim() === "")
       return false;
     return true;
   };

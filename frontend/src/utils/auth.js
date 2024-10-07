@@ -1,4 +1,3 @@
-import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 
 import { axiosInstance } from "./axios";

@@ -34,7 +34,7 @@ function* registerSaga(action) {
       "/api/users/create/",
       action.payload
     );
-    if (response.status == 201 || response.status == 200) {
+    if (response.status === 201 || response.status === 200) {
       const { email, password } = action.payload;
       yield call(loginSaga, {
         type: LOGIN,

@@ -1,0 +1,223 @@
+/* ~~~~~~~~~~ ~~~~~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ FONT FAMILY ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~~~~~ ~~~~~~~~~~ */
+@font-face {
+  font-family: "poppinsLight";
+  src: url(../font/Poppins/Poppins-Light.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "poppinsRegular";
+  src: url(../font/Poppins/Poppins-Regular.ttf);
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "poppinsSemiBold";
+  src: url(../font/Poppins/Poppins-SemiBold.ttf);
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "poppinsBold";
+  src: url(../font/Poppins/Poppins-Bold.ttf);
+  font-style: normal;
+}
+
+/* ~~~~~~~~~~ ~~~~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ALLGEMEIN ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~~~~ ~~~~~~~~~~ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  min-height: 100vh;
+}
+
+body {
+  font-family: var(--poppinsRegular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  background-color: var(--lightgrey);
+  color: var(--darkFont);
+}
+
+h1,
+h2 {
+  font-family: var(--poppinsBold);
+}
+
+h3,
+h4 {
+  font-family: var(--poppinsSemiBold);
+}
+
+small {
+  font-family: var(--poppinsLight);
+}
+
+img {
+  user-select: none;
+}
+
+button {
+  font-family: var(--poppinsRegular);
+}
+
+:root {
+  /* ~~~~~ COLOR (VARIABLEN) ~~~~~ */
+  /* ~~~ DEFAULT ~~~ */
+  --white: #fff;
+  --black: #000;
+  --darkgrey: #282c34;
+  --lightgrey: #edeff1;
+  /* ~~~ MAIN ~~~ */
+  --lightBlue: #61a1fb;
+  --normalBlue: #3171cc;
+  --darkBlue: #0d2e5e;
+
+  /* ~~~~~ TYPOGRAPHY (VARIABLEN) ~~~~~ */
+  /* ~~~ FONT SIZE ~~~ */
+  --xx-small_Font: 10px;
+  --x-small_Font: 12px;
+  --smaller_Font: 14px;
+  --small_Font: 15px;
+
+  --regular_Font: 16.5px;
+
+  --medium_Font: 17.5px;
+
+  --large_Font: 19px;
+  --larger_Font: 24px;
+  --x-large_Font: 32px;
+  --xx-large_Font: 38px;
+
+  /* ~~~ FONT COLOR ~~~ */
+  --darkFont: #13151a;
+  --lightFont: #f1f5fc;
+
+  /* ~~~ FONT FAMILY ~~~ */
+  --poppinsLight: "poppinsLight";
+  --poppinsRegular: "poppinsRegular";
+  --poppinsSemiBold: "poppinsSemiBold";
+  --poppinsBold: "poppinsBold";
+
+  /* ~~~~~ SHADOWS ~~~~~ */
+  /* ~~~~~ BOX ~~~~~ */
+  --box-shadow-card: 3px 4px 12px -1px rgba(0, 0, 0, 0.15);
+  --box-shadow-normal: 2px 3px 10px -1px rgba(0, 0, 0, 0.1);
+  /* ~~~~~ TEXT ~~~~~ */
+}
+
+/* ~~~~~~~~~~ ~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ HEADER ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~ ~~~~~~~~~~ */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 2.5rem;
+  height: 4rem;
+  box-shadow: var(--box-shadow-normal);
+}
+
+.header > .headerLogo {
+  text-decoration: none;
+  color: var(--darkBlue);
+}
+
+.header .headerNav {
+  display: flex;
+  gap: 35px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.header .headerNav a {
+  font-size: var(--regular_Font);
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--darkFont);
+  position: relative;
+  padding: 0px 0.125rem;
+  transition: all 0.25s ease;
+}
+
+.header .headerNav a.active {
+  color: var(--normalBlue);
+}
+
+.header .headerNav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background-color: var(--normalBlue);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.25s ease;
+}
+
+.header .headerNav a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.header .headerNav button {
+  font-weight: 500;
+  color: var(--lightFont);
+  position: relative;
+  z-index: 1;
+  padding: 0.25rem 0.6rem;
+  border: none;
+  outline: none;
+  font-size: var(--regular_Font);
+  cursor: pointer;
+
+  position: relative;
+}
+
+.header .headerNav button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  transform: translate(0px, 0px);
+  border: 1.75px solid transparent;
+  transition: transform 0.25s ease, border 0.25s ease;
+}
+
+.header .headerNav button:hover::after {
+  transform: translate(-4px, -4px);
+  border-color: var(--darkBlue);
+}
+
+.header .headerNav button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  box-shadow: none;
+  background-color: var(--normalBlue);
+  transition: box-shadow 0.25s ease;
+}
+
+.header .headerNav button:hover::before {
+  box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.5), 5px 5px 0px var(--white);
+}

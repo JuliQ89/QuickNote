@@ -13,9 +13,9 @@ const RegisterPage = () => {
 
   const validateForm = () => {
     if (
-      formData.email.trim() == "" ||
-      formData.password.trim() == "" ||
-      formData.username.trim() == ""
+      formData.email.trim() === "" ||
+      formData.password.trim() === "" ||
+      formData.username.trim() === ""
     )
       return false;
     return true;
