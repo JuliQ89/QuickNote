@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import MyTokenObtainPairView, getColors, getColor, createColor, deleteColor, updateColor, getNotes, getNote, createNote, deleteNote, updateNote
+from .views import MyTokenObtainPairView, getColors, getColor, createColor, deleteColor, updateColor, getNotes, getNote, createNote, deleteNote, updateNote, getUsers, getUser, createUser
 
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
@@ -22,6 +22,11 @@ urlpatterns = [
     path('notes/create/', createNote, name='api_create_note'),
     path('notes/delete/<str:pk>/', deleteNote, name='api_delete_note'),
     path('notes/update/<str:pk>/', updateNote, name='api_update_note'),
+
+    # == USERS ==
+    path('users/', getUsers, name='api_get_users'),
+    path('user/<str:pk>/', getUser, name='api_get_user'),
+    path('users/create/', createUser, name='api_create_user'),
 
     # JWT Token
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),

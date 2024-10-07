@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { jwtDecode } from "jwt-decode";
-import Cookies from "js-cookie";
+
+import {
+  getTokensCookie,
+  setTokenCookies,
+  removeTokenCookies,
+} from "../../utils/auth";
 
 const initialState = {
   user: null,
@@ -19,20 +24,17 @@ export const authSlice = createSlice({
       state.refreshToken = refreshToken;
       state.user = jwtDecode(accessToken);
       state.isAuthenticated = true;
-      Cookies.set("access_token", accessToken);
-      Cookies.set("refresh_token", refreshToken);
+      setTokenCookies(accessToken, refreshToken);
     },
     logout: (state) => {
       state.user = null;
       state.accessToken = null;
       state.refreshToken = null;
       state.isAuthenticated = false;
-      Cookies.remove("access_token");
-      Cookies.remove("refresh_token");
+      removeTokenCookies();
     },
     setTokensFromCookies: (state) => {
-      const accessToken = Cookies.get("access_token");
-      const refreshToken = Cookies.get("refresh_token");
+      const { access: accessToken, refresh: refreshToken } = getTokensCookie();
       if (accessToken) {
         state.accessToken = accessToken;
         state.refreshToken = refreshToken;

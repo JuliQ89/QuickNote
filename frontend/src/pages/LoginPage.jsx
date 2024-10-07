@@ -13,15 +13,23 @@ const LoginPage = () => {
     password: "",
   });
 
+  const validateForm = () => {
+    if (formData.email.trim() == "" || formData.password.trim() == "")
+      return false;
+    return true;
+  };
+
   const clearFormData = () => {
     setFormData({ ...formData, email: "", password: "" });
   };
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(login(formData));
+    if (validateForm()) {
+      dispatch(login(formData));
+      navigate("/");
+    }
     clearFormData();
-    navigate("/");
   };
 
   return (

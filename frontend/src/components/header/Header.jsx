@@ -15,6 +15,7 @@ const Header = () => {
       </Link>
 
       <nav className="headerNav">
+        <Link to="/">Home</Link>
         <Link to="/notes">Notes</Link>
         {!isAuthenticated ? (
           <>

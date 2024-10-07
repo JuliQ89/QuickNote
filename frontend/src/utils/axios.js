@@ -3,12 +3,11 @@ import Cookies from "js-cookie";
 
 import { store } from "../redux/store";
 import { refreshAccessToken } from "./auth";
-
-export const baseURL = `http://localhost:8000`;
+import { baseURL } from "./constants";
 
 export const axiosInstance = axios.create({
   baseURL,
-  timeout: 10000,
+  timeout: 15000,
   headers: {
     "Content-Type": "application/json",
     accept: "application/json",
@@ -20,10 +19,15 @@ axiosInstance.interceptors.request.use(
   (config) => {
     if (!config.headers["Authorization"]) {
       let accessToken = store.getState().auth.accessToken;
+
       if (accessToken == null) {
-        accessToken = Cookies.get("access_token");
+        if (Cookies.get("access_token")) {
+          accessToken = Cookies.get("access_token");
+          config.headers["Authorization"] = `Bearer ${accessToken}`;
+        }
+      } else {
+        config.headers["Authorization"] = `Bearer ${accessToken}`;
       }
-      config.headers["Authorization"] = `Bearer ${accessToken}`;
     }
     return config;
   },

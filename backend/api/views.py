@@ -22,7 +22,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getColors(request):
-    colors = Color.objects.all()
+    colors = Color.objects.filter(user=request.user)
     serializer = ColorSerializer(colors, many=True)
     return Response(serializer.data)
 
@@ -30,7 +30,7 @@ def getColors(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getColor(request, pk:int):
-    color = get_object_or_404(Color, id=pk)
+    color = get_object_or_404(Color, id=pk, user=request.user)
     serializer = ColorSerializer(color, many=False)
     return Response(serializer.data)
 
@@ -52,7 +52,7 @@ def createColor(request):
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def deleteColor(request, pk:int):
-    color = get_object_or_404(Color, id=pk)
+    color = get_object_or_404(Color, id=pk, user=request.user)
     color.delete()
     return Response({'success':True})
 
@@ -61,7 +61,7 @@ def deleteColor(request, pk:int):
 @permission_classes([IsAuthenticated])
 def updateColor(request, pk:int):
     payload = request.data
-    color = get_object_or_404(Color, id=pk)
+    color = get_object_or_404(Color, id=pk, user=request.user)
     for attr, value in payload.items():
         setattr(color, attr, value)
     color.save()
@@ -79,7 +79,7 @@ def updateColor(request, pk:int):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getNotes(request):
-    notes = Note.objects.all()
+    notes = Note.objects.filter(user=request.user)
     serializer = NoteSerializer(notes, many=True)
     return Response(serializer.data)
 
@@ -87,7 +87,7 @@ def getNotes(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getNote(request, pk:uuid.UUID):
-    note = get_object_or_404(Note, id=pk)
+    note = get_object_or_404(Note, id=pk, user=request.user)
     serializer = NoteSerializer(note, many=False)
     return Response(serializer.data)
 
@@ -97,7 +97,7 @@ def getNote(request, pk:uuid.UUID):
 def createNote(request):
     payload = request.data
     user = request.user
-    color = get_object_or_404(Color, id=payload['color'])
+    color = get_object_or_404(Color, id=payload['color'], user=request.user)
 
     note = Note.objects.create(
         user=user,
@@ -112,7 +112,7 @@ def createNote(request):
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def deleteNote(request, pk:uuid.UUID):
-    note = get_object_or_404(Note, id=pk)
+    note = get_object_or_404(Note, id=pk, user=request.user)
     note.delete()
     return Response({'success':True})
 
@@ -121,7 +121,7 @@ def deleteNote(request, pk:uuid.UUID):
 @permission_classes([IsAuthenticated])
 def updateNote(request, pk:uuid.UUID):
     payload = request.data
-    note = get_object_or_404(Note, id=pk)
+    note = get_object_or_404(Note, id=pk, user=request.user)
     for attr, value in payload.items():
         setattr(note, attr, value)
     note.save()
@@ -134,4 +134,41 @@ def updateNote(request, pk:uuid.UUID):
 #     "color": 1,
 #     "title": "Programmieren",
 #     "description": "Lorem ipsum dolor sit amet, consetetur sit."
+# }
+
+
+# ===== CRUD (User) =====
+@api_view(['GET'])
+def getUsers(request):
+    users = User.objects.all()
+    serializer = UserSerializer(users, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getUser(request, pk:int):
+    user = get_object_or_404(User, id=pk)
+    serializer = UserSerializer(user, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def createUser(request):
+    payload = request.data
+
+    user = User.objects.create(
+        email=payload['email'],
+        username=payload['username']
+    )
+    user.set_password(payload['password']) 
+    user.save()
+    serializer = UserSerializer(user)
+    return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+# === BEISPIEL ===
+# {
+#     "email": "mailrs@singheiser.com",
+#     "password": "8yhgtdzQ",
+#     "username": "robert.singheiser"
 # }
