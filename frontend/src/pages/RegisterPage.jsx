@@ -1,71 +1,127 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-
-import { register } from "../redux/types";
+import React, { useEffect, useState } from "react";
+import Toast, { notify } from "../components/messages/Toast";
+import { Link } from "react-router-dom";
 
 const RegisterPage = () => {
-  const dispatch = useDispatch();
+  const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     username: "",
   });
-
-  const validateForm = () => {
-    if (
-      formData.email.trim() === "" ||
-      formData.password.trim() === "" ||
-      formData.username.trim() === ""
-    )
-      return false;
-    return true;
-  };
+  const [formErrors, setFormErrors] = useState({
+    email: "",
+    password: "",
+  });
 
   const clearFormData = () => {
     setFormData({ ...formData, username: "", email: "", password: "" });
   };
 
+  const validateForm = () => {
+    let errors = { ...formErrors };
+
+    if (String(formData.email).trim() === "") {
+      errors.email = "Dieses Feld ist erforderlich!";
+    } else {
+      errors.email = "";
+    }
+
+    if (String(formData.password).trim() === "") {
+      errors.password = "Dieses Feld ist erforderlich!";
+    } else {
+      errors.password = "";
+    }
+
+    if (String(formData.username).trim() === "") {
+      errors.username = "Dieses Feld ist erforderlich!";
+    } else {
+      errors.username = "";
+    }
+
+    setFormErrors(errors);
+
+    if (!errors.email && !errors.password && !errors.username) {
+      setValidated(true);
+    } else {
+      setValidated(false);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    validateForm();
+  }, [formData]);
+
   const handleRegister = (e) => {
     e.preventDefault();
-    if (validateForm()) dispatch(register(formData));
-    clearFormData();
+    validateForm();
+    if (validated) {
+      notify("Registrierung war erfolgreich!");
+      clearFormData();
+    }
   };
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Username"
-          value={formData.username}
-          onChange={(e) => {
-            setFormData({ ...formData, username: e.target.value });
-          }}
-        />
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={(e) => {
-            setFormData({ ...formData, email: e.target.value });
-          }}
-        />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={(e) => {
-            setFormData({ ...formData, password: e.target.value });
-          }}
-        />
-        <button type="submit">Register</button>
-      </form>
+    <div className="formularWrapper">
+      <Toast />
+      <div className="formularContainer">
+        <h2>Register</h2>
+        <form className="authFormular" onSubmit={handleRegister}>
+          <div className="formField">
+            {formErrors.username !== "" && (
+              <span className="errorMessage">{formErrors.username}</span>
+            )}
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Username"
+              autoComplete=""
+              value={formData.username}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="formField">
+            {formErrors.email !== "" && (
+              <span className="errorMessage">{formErrors.email}</span>
+            )}
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              autoComplete=""
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="formField">
+            {formErrors.password !== "" && (
+              <span className="errorMessage">{formErrors.password}</span>
+            )}
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              autoComplete=""
+              value={formData.password}
+              onChange={handleInputChange}
+            />
+          </div>
+          <button type="submit">Register</button>
+        </form>
+        <span className="switchRegistration">
+          Du hast schon einen Account <Link to="/login">Login</Link>
+        </span>
+      </div>
     </div>
   );
 };

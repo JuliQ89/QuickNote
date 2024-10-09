@@ -1,63 +1,107 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-
-import { login } from "../redux/types";
+import React, { useEffect, useState } from "react";
+import Toast, { notify } from "../components/messages/Toast";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+  const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
-  const validateForm = () => {
-    if (formData.email.trim() === "" || formData.password.trim() === "")
-      return false;
-    return true;
-  };
+  const [formErrors, setFormErrors] = useState({
+    email: "",
+    password: "",
+  });
 
   const clearFormData = () => {
     setFormData({ ...formData, email: "", password: "" });
   };
 
+  const validateForm = () => {
+    let errors = { ...formErrors };
+
+    if (String(formData.email).trim() === "") {
+      errors.email = "Dieses Feld ist erforderlich!";
+    } else {
+      errors.email = "";
+    }
+
+    if (String(formData.password).trim() === "") {
+      errors.password = "Dieses Feld ist erforderlich!";
+    } else {
+      errors.password = "";
+    }
+
+    setFormErrors(errors);
+
+    if (!errors.email && !errors.password) {
+      setValidated(true);
+    } else {
+      setValidated(false);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  useEffect(() => {
+    validateForm();
+  }, [formData]);
+
   const handleLogin = (e) => {
     e.preventDefault();
-    if (validateForm()) {
-      dispatch(login(formData));
-      navigate("/");
+    validateForm();
+    if (validated) {
+      notify("Login war erfolgreich!");
+      clearFormData();
     }
-    clearFormData();
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={(e) => {
-            setFormData({ ...formData, email: e.target.value });
-          }}
-        />
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={(e) => {
-            setFormData({ ...formData, password: e.target.value });
-          }}
-        />
-        <button type="submit">Login</button>
-      </form>
+    <div className="formularWrapper">
+      <Toast />
+      <div className="formularContainer">
+        <h2>Login</h2>
+        <form className="authFormular" onSubmit={handleLogin}>
+          <div className="formField">
+            {formErrors.email !== "" && (
+              <span className="errorMessage">{formErrors.email}</span>
+            )}
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              autoComplete=""
+              value={formData.email}
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="formField">
+            {formErrors.password !== "" && (
+              <span className="errorMessage">{formErrors.password}</span>
+            )}
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              autoComplete=""
+              value={formData.password}
+              onChange={handleInputChange}
+            />
+          </div>
+          <button type="submit">Login</button>
+        </form>
+        <span className="switchRegistration">
+          Du hast noch keinen Account <Link to="/register">Register</Link>
+        </span>
+      </div>
     </div>
   );
 };

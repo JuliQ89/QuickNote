@@ -1,23 +1,30 @@
 import Cookies from "js-cookie";
 
 import { axiosInstance } from "./axios";
-import { setAccessToken, setRefreshToken } from "../redux/auth/authSlice";
+import {
+  logout,
+  setAccessToken,
+  setRefreshToken,
+} from "../redux/auth/authSlice";
 
 import { store } from "../redux/store";
 
-export const refreshAccessToken = () => {
+export const refreshAccessToken = async () => {
   const refreshToken = store.getState().auth.refreshToken;
   try {
-    const response = axiosInstance.post("/api/token/refresh/", {
+    const response = await axiosInstance.post("/api/token/refresh/", {
       refresh: refreshToken,
     });
     if (response.data) {
       store.dispatch(setAccessToken(response.data?.access));
       store.dispatch(setRefreshToken(response.data?.refresh));
+      setTokenCookies(response.data?.access, response.data?.refresh);
       return response.data?.access;
     }
   } catch (error) {
     console.log(error);
+    store.dispatch(logout());
+    return null;
   }
 };
 

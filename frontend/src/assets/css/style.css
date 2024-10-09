@@ -37,8 +37,11 @@
 }
 
 html,
-body {
-  min-height: 100vh;
+body,
+#root,
+.wrapper,
+.mainContainer {
+  height: 100%;
 }
 
 body {
@@ -72,6 +75,10 @@ button {
   font-family: var(--poppinsRegular);
 }
 
+input::placeholder {
+  font-size: 16px;
+}
+
 :root {
   /* ~~~~~ COLOR (VARIABLEN) ~~~~~ */
   /* ~~~ DEFAULT ~~~ */
@@ -83,6 +90,10 @@ button {
   --lightBlue: #61a1fb;
   --normalBlue: #3171cc;
   --darkBlue: #0d2e5e;
+  /* ~~~ MESSAGE ~~~ */
+  --error-msg: rgba(206, 39, 33, 0.9);
+  /* WEITERE */
+  --input-shadow-color: rgba(34, 154, 223, 0.8);
 
   /* ~~~~~ TYPOGRAPHY (VARIABLEN) ~~~~~ */
   /* ~~~ FONT SIZE ~~~ */
@@ -115,6 +126,9 @@ button {
   --box-shadow-card: 3px 4px 12px -1px rgba(0, 0, 0, 0.15);
   --box-shadow-normal: 2px 3px 10px -1px rgba(0, 0, 0, 0.1);
   /* ~~~~~ TEXT ~~~~~ */
+
+  /* ~~~~~ BORDER RADIUS ~~~~~ */
+  --box-card-radius: 12px;
 }
 
 /* ~~~~~~~~~~ ~~~~~~ ~~~~~~~~~~ */
@@ -220,4 +234,136 @@ button {
 
 .header .headerNav button:hover::before {
   box-shadow: 2px 2px 3px -1px rgba(0, 0, 0, 0.5), 5px 5px 0px var(--white);
+}
+
+/* ~~~~~~~~~~ ~~~~~~~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ PRIVATE ROTE ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~~~~~~~ ~~~~~~~~~~ */
+.privateRouteContainer {
+  padding: 1.25rem;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.privateRouteContainer > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.privateRouteContainer h2 {
+  color: var(--darkFont);
+  font-size: var(--x-large_Font);
+}
+
+.privateRouteContainer span {
+  color: var(--darkFont);
+  font-size: var(--medium_Font);
+}
+
+.privateRouteContainer a {
+  color: var(--normalBlue);
+  font-size: var(--medium_Font);
+  font-family: var(--poppinsSemiBold);
+}
+
+/* ~~~~~~~~~~ ~~~~~~~~~~~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ LOGIN / REGISTER ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~~~~~~~~~~~ ~~~~~~~~~~ */
+.formularWrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formularContainer {
+  max-width: 600px;
+  width: 500px;
+  padding: 1.25rem;
+  background-color: var(--white);
+  box-shadow: var(--box-shadow-card);
+  border-radius: var(--box-card-radius);
+}
+
+.formularContainer span.switchRegistration {
+  color: var(--darkFont);
+  font-size: var(--small_Font);
+  margin-top: 1rem;
+  display: inline-block;
+}
+
+.formularContainer span.switchRegistration a {
+  color: var(--normalBlue);
+  font-family: var(--poppinsSemiBold);
+}
+
+.formularContainer > h2 {
+  color: var(--darkFont);
+  font-size: var(--x-large_Font);
+  text-align: center;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.authFormular {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.authFormular .formField {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.authFormular .formField .errorMessage {
+  background-color: rgba(206, 39, 33, 0.25);
+  display: block;
+  padding: 0.2rem 0.45rem;
+  border-radius: 0.15rem;
+  color: var(--error-msg);
+  font-size: var(--small_Font);
+}
+
+.authFormular .formField .errorMessage::before {
+  content: "⚠ ";
+}
+
+.authFormular .formField > input {
+  color: var(--darkFont);
+  font-family: var(--poppinsRegular);
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  outline: none;
+  font-size: var(--regular_Font);
+  padding: 0.45rem 0.75rem;
+  border-radius: 4px;
+  box-shadow: none;
+  transition: box-shadow 0.25s ease;
+}
+
+.authFormular .formField > input:focus {
+  box-shadow: 0px 0px 0.1px 3.5px var(--input-shadow-color);
+}
+
+.authFormular > button[type="submit"] {
+  margin-top: 0.75rem;
+  background-color: var(--normalBlue);
+  border: none;
+  outline: none;
+  color: var(--lightFont);
+  font-size: var(--medium_Font);
+  padding: 0.45rem 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+
+  transition: background-color 0.25s ease;
+}
+
+.authFormular > button[type="submit"]:hover:active {
+  background-color: var(--darkBlue);
 }

@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { store } from "../redux/store";
 import { refreshAccessToken } from "./auth";
 import { baseURL } from "./constants";
+import { logout } from "../redux/auth/authSlice";
 
 export const axiosInstance = axios.create({
   baseURL,
@@ -44,8 +45,12 @@ axiosInstance.interceptors.response.use(
     if (error?.response?.status === 401 && !prevRequest?.sent) {
       prevRequest.sent = true;
       const newAccessToken = await refreshAccessToken();
-      prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-      return axiosInstance(prevRequest);
+      if (newAccessToken) {
+        prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+        return axiosInstance(prevRequest);
+      } else {
+        store.dispatch(logout());
+      }
     }
     return Promise.reject(error);
   }
