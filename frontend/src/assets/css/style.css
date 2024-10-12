@@ -367,3 +367,340 @@ input::placeholder {
 .authFormular > button[type="submit"]:hover:active {
   background-color: var(--darkBlue);
 }
+
+/* ~~~~~~~~~~ ~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ NOTES ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~ ~~~~~~~~~~ */
+.notesWrapper {
+  --box-shadow-mode: 3px 4px 12px -1px rgba(255, 255, 255, 0.2);
+
+  --whiteboard-dark-bg: rgba(40, 44, 52, 1); /* Whiteboard dark Mode */
+  --whiteboard-light-bg: rgba(245, 245, 245, 1); /* Whiteboard light Mode */
+
+  --square-color-dark-mode: rgba(125, 125, 125, 0.1); /* Whiteboard dark Mode */
+  --square-color-light-mode: rgba(25, 25, 25, 0.1); /* Whiteboard light Mode */
+  --square-size: 25px;
+
+  width: 100%;
+  height: 100%;
+  background-color: var(--whiteboard-dark-bg);
+  position: relative;
+
+  background-size: var(--square-size) var(--square-size); /* Square Size */
+}
+
+/* WHITEBOARD DARK MODE */
+.notesWrapper[data-mode="dark"] {
+  background-color: var(--whiteboard-dark-bg);
+  background-image: linear-gradient(
+      to right,
+      var(--square-color-dark-mode) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      var(--square-color-dark-mode) 1px,
+      transparent 1px
+    );
+}
+
+/* WHITEBOARD LIGHT MODE */
+.notesWrapper[data-mode="light"] {
+  background-color: var(--whiteboard-light-bg);
+  background-image: linear-gradient(
+      to right,
+      var(--square-color-light-mode) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      var(--square-color-light-mode) 1px,
+      transparent 1px
+    );
+}
+
+.notesWrapper[data-mode="dark"] {
+  --box-shadow-mode: 3px 4px 12px -1px rgba(255, 255, 255, 0.2);
+}
+
+.notesWrapper[data-mode="light"] {
+  --box-shadow-mode: 3px 4px 12px -1px rgba(0, 0, 0, 0.25);
+}
+
+/* NOTES SIDEBAR CONTAINER */
+.notesWrapper .notesSidebar {
+  --sidebar-bg-dark-mode: var(--white);
+  --sidebar-bg-light-mode: var(--darkgrey);
+
+  position: absolute;
+  z-index: 999;
+  left: 0.45rem;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: var(--box-shadow-mode);
+  border-radius: 5px;
+  padding: 1rem 0.5rem;
+}
+
+.notesWrapper[data-mode="dark"] .notesSidebar {
+  background-color: var(--sidebar-bg-dark-mode);
+}
+
+.notesWrapper[data-mode="light"] .notesSidebar {
+  background-color: var(--sidebar-bg-light-mode);
+}
+
+/* HEADER */
+.notesWrapper .notesSidebar .notesSidebarHeader {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+  gap: 0.15rem;
+}
+
+.notesWrapper .notesSidebar .notesSidebarHeader a {
+  color: var(--darkFont);
+  transition: color 0.25s ease;
+}
+
+.notesWrapper .notesSidebar .notesSidebarHeader a:hover {
+  color: var(--normalBlue);
+}
+
+.notesWrapper[data-mode="dark"] .notesSidebarHeader a {
+  color: var(--darkFont);
+}
+
+.notesWrapper[data-mode="light"] .notesSidebarHeader a {
+  color: var(--lightFont);
+}
+
+/* BODY */
+.notesWrapper .notesSidebar .notesSidebarBody {
+  display: flex;
+}
+
+.notesWrapper .notesSidebar .notesSidebarBody .colorsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.notesWrapper .notesSidebar .notesSidebarBody .colorsContainer .colorButton {
+  --button-diameter: 35px;
+
+  cursor: pointer;
+  display: flex;
+  border: none;
+  outline: none;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  width: var(--button-diameter);
+  height: var(--button-diameter);
+  box-shadow: none;
+
+  transition: border 0.25s ease;
+}
+
+.notesWrapper[data-mode="dark"]
+  .notesSidebar
+  .notesSidebarBody
+  .colorsContainer
+  .colorButton {
+  color: var(--darkFont);
+  box-shadow: 1px 2px 5px 1px rgba(0, 0, 0, 0.35);
+}
+
+.notesWrapper[data-mode="light"]
+  .notesSidebar
+  .notesSidebarBody
+  .colorsContainer
+  .colorButton {
+  color: var(--lightFont);
+  box-shadow: 1px 2px 5px 1px rgba(255, 255, 255, 0.2);
+}
+
+.notesWrapper
+  .notesSidebar
+  .notesSidebarBody
+  .colorsContainer
+  .colorButton:hover {
+  border-color: var(--input-shadow-color) !important;
+}
+
+.colorsContainer .appendColorButtonContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-direction: column;
+}
+
+.colorsContainer .appendColorButtonContainer input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 36px;
+  height: 40px;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+}
+
+.colorsContainer
+  .appendColorButtonContainer
+  input[type="color"]::-webkit-color-swatch {
+  border-radius: 100%;
+  border: none;
+  /* border-style: dashed;
+  border-width: 2px; */
+}
+
+/* NOTES WHITEBOARD CONTAINER */
+.notesWrapper .notesWhiteboard {
+  position: relative;
+  z-index: 0;
+}
+
+/* NOTE CARD ON WHITEBOARD */
+.notesWrapper .notesWhiteboard .noteCard {
+  position: absolute;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow-mode);
+  max-width: 300px;
+}
+
+/* CARD HEADER */
+.notesWrapper .notesWhiteboard .noteCard .noteCardHeader {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid rgba(225, 225, 225, 0.2);
+}
+
+.notesWrapper .notesWhiteboard .noteCard .noteCardHeader > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--large_Font);
+  font-family: var(--poppinsSemiBold);
+}
+
+.notesWrapper .notesWhiteboard .noteCard .noteCardHeader > div > svg {
+  cursor: pointer;
+}
+
+.notesWrapper .notesWhiteboard .noteCard .noteCardHeader > div > svg path {
+  transition: all 0.25s ease;
+}
+
+.notesWrapper
+  .notesWhiteboard
+  .noteCard
+  .noteCardHeader
+  > div
+  > svg:hover
+  path {
+  fill: var(--error-msg);
+}
+
+.notesWrapper .notesWhiteboard .noteCard .noteCardHeader > div > div {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.notesWrapper .notesWhiteboard .noteCard .noteCardHeader h2 {
+  font-size: var(--large_Font);
+}
+
+/* CARD BODY */
+.notesWrapper .notesWhiteboard .noteCard .noteCardBody {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  padding: 0.5rem 0.75rem;
+}
+
+/* CARD FOOTER */
+.notesWrapper .notesWhiteboard .noteCard .noteCardFooter {
+  padding: 0.25rem 0.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(225, 225, 225, 0.2);
+}
+
+.notesWrapper .notesWhiteboard .noteCard .noteCardFooter small {
+  font-family: var(--poppinsLight);
+  font-size: var(--smaller_Font);
+  opacity: 0.75;
+}
+
+/* ~~~~~~~~~~ ~~~~~~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ MODE TOGGLE ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~~~~~~ ~~~~~~~~~~ */
+.modeToggle {
+  position: absolute;
+  z-index: 999;
+  top: 1.25rem;
+  right: 1.25rem;
+}
+
+.modeToggle > label {
+  --toggle-width: 30px;
+  --toggle-height: 30px;
+
+  cursor: pointer;
+  background-color: var(--darkgrey);
+  box-shadow: var(--box-shadow-mode);
+  height: var(--toggle-height);
+  width: var(--toggle-width);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+
+  transition: all 0.35s ease;
+}
+
+.modeToggle > label.light {
+  background-color: var(--darkgrey);
+  color: var(--lightFont);
+}
+
+.modeToggle > label.dark {
+  background-color: var(--white);
+  color: var(--darkFont);
+}
+
+.modeToggle > label.dark svg {
+  animation: modeToggleSvgGrowDark 0.35s ease;
+}
+
+.modeToggle > label.light svg {
+  animation: modeToggleSvgGrowLight 0.35s ease;
+}
+
+@keyframes modeToggleSvgGrowDark {
+  from {
+    transform: scale(0) rotate(125deg);
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes modeToggleSvgGrowLight {
+  from {
+    transform: scale(0) rotate(180deg);
+  }
+  to {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.modeToggle > input[type="checkbox"] {
+  display: none;
+}

@@ -1,11 +1,11 @@
 import { call, put, takeLatest } from "redux-saga/effects";
 import { axiosInstance } from "../../utils/axios";
 
-import { loginSuccess } from "./authSlice";
+import { loginUser } from "./authSlice";
 import { LOGIN, REGISTER } from "../types";
 
-// LOGIN
-// Worker Saga: Handling the login request
+// // LOGIN
+// // Worker Saga: Handling the login request
 function* loginSaga(action) {
   try {
     const response = yield call(
@@ -14,19 +14,19 @@ function* loginSaga(action) {
       action.payload
     );
     const { access, refresh } = response.data;
-    yield put(loginSuccess({ accessToken: access, refreshToken: refresh }));
+    yield put(loginUser({ access_token: access, refresh_token: refresh }));
   } catch (error) {
     console.error("Login failed:", error);
   }
 }
 
-// Watcher Saga: Watching for login actions
-export function* watchLoginSaga() {
+// // Watcher Saga: Watching for login actions
+export function* watcherLoginSaga() {
   yield takeLatest(LOGIN, loginSaga);
 }
 
-// REGISTER
-// Worker Saga: Handling the register request
+// // REGISTER
+// // Worker Saga: Handling the register request
 function* registerSaga(action) {
   try {
     const response = yield call(

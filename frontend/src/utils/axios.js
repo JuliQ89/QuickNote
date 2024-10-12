@@ -1,17 +1,15 @@
 import axios from "axios";
+import { refreshAccessToken } from "./auth";
 import Cookies from "js-cookie";
 
 import { store } from "../redux/store";
-import { refreshAccessToken } from "./auth";
 import { baseURL } from "./constants";
-import { logout } from "../redux/auth/authSlice";
 
 export const axiosInstance = axios.create({
   baseURL,
   timeout: 15000,
   headers: {
     "Content-Type": "application/json",
-    accept: "application/json",
   },
 });
 
@@ -19,15 +17,15 @@ export const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     if (!config.headers["Authorization"]) {
-      let accessToken = store.getState().auth.accessToken;
+      let access_token = store.getState().auth.access_token;
 
-      if (accessToken == null) {
+      if (!access_token) {
         if (Cookies.get("access_token")) {
-          accessToken = Cookies.get("access_token");
-          config.headers["Authorization"] = `Bearer ${accessToken}`;
+          access_token = Cookies.get("access_token");
+          config.headers["Authorization"] = `Bearer ${access_token}`;
         }
       } else {
-        config.headers["Authorization"] = `Bearer ${accessToken}`;
+        config.headers["Authorization"] = `Bearer ${access_token}`;
       }
     }
     return config;
@@ -44,12 +42,10 @@ axiosInstance.interceptors.response.use(
     const prevRequest = error?.config;
     if (error?.response?.status === 401 && !prevRequest?.sent) {
       prevRequest.sent = true;
-      const newAccessToken = await refreshAccessToken();
-      if (newAccessToken) {
-        prevRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+      const new_access_token = await refreshAccessToken();
+      if (new_access_token) {
+        prevRequest.headers["Authorization"] = `Bearer ${new_access_token}`;
         return axiosInstance(prevRequest);
-      } else {
-        store.dispatch(logout());
       }
     }
     return Promise.reject(error);

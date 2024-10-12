@@ -7,22 +7,24 @@ const PrivateRoutes = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   return (
-    <div className="privateRouteContainer">
+    <>
       {isAuthenticated ? (
         <>{children}</>
       ) : (
-        <div>
-          <h2>Dies ist eine Private Route</h2>
-          <span>
-            Um diese Seite zu sehen musst du dich{" "}
-            <Link to="/login">anmelden</Link>
-          </span>
-          <span>
-            Gehe zu <Link to="/">Home</Link>
-          </span>
+        <div className="privateRouteContainer">
+          <div>
+            <h2>Dies ist eine Private Route</h2>
+            <span>
+              Um diese Seite zu sehen musst du dich{" "}
+              <Link to="/login">anmelden</Link>
+            </span>
+            <span>
+              Gehe zu <Link to="/">Home</Link>
+            </span>
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 };
 

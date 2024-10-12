@@ -1,44 +1,61 @@
 import { useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 import PrivateRoutes from "./layouts/PrivateRoutes";
+import MainContainer from "./layouts/MainContainer";
 
 import HomePage from "./pages/HomePage";
 import NotePage from "./pages/NotePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 
-import Header from "./components/header/Header";
-
-import { setTokensFromCookies } from "./redux/auth/authSlice";
+import { loginUserOnPageLoad } from "./utils/auth";
 
 function App() {
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(setTokensFromCookies());
-  }, [dispatch]);
+    loginUserOnPageLoad();
+  }, []);
 
   return (
     <div className="wrapper">
       <BrowserRouter>
-        <Header />
-        <main className="mainContainer">
-          <Routes>
-            <Route exact path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route
-              path="/notes"
-              element={
-                <PrivateRoutes>
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={
+              <MainContainer header={true}>
+                <HomePage />
+              </MainContainer>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <MainContainer header={true}>
+                <LoginPage />
+              </MainContainer>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <MainContainer header={true}>
+                <RegisterPage />
+              </MainContainer>
+            }
+          />
+          <Route
+            path="/notes"
+            element={
+              <PrivateRoutes>
+                <MainContainer header={false}>
                   <NotePage />
-                </PrivateRoutes>
-              }
-            />
-          </Routes>
-        </main>
+                </MainContainer>
+              </PrivateRoutes>
+            }
+          />
+        </Routes>
       </BrowserRouter>
     </div>
   );

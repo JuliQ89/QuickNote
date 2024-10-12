@@ -38,4 +38,4 @@ class NoteSerializer(serializers.ModelSerializer):
     color = ColorSerializer()
     class Meta:
         model = Note
-        fields = ['title', 'description', 'created_at', 'updated_at', 'id', 'color', 'user']
+        fields = ['title', 'description', 'created_at', 'updated_at', 'pos_y', 'pos_x', 'id', 'color', 'user']

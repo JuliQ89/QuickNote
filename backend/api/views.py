@@ -114,7 +114,7 @@ def createNote(request):
 def deleteNote(request, pk:uuid.UUID):
     note = get_object_or_404(Note, id=pk, user=request.user)
     note.delete()
-    return Response({'success':True})
+    return Response({"note_id": pk})
 
 
 @api_view(['PUT'])

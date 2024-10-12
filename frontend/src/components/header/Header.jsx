@@ -2,7 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../redux/auth/authSlice";
+import { logoutUser } from "../../redux/auth/authSlice";
 
 const NavbarLink = ({ link, content }) => {
   return (
@@ -34,7 +34,7 @@ const Header = () => {
             <NavbarLink link="/register" content="Register" />
           </>
         ) : (
-          <button onClick={() => dispatch(logout())}>Logout</button>
+          <button onClick={() => dispatch(logoutUser())}>Logout</button>
         )}
       </nav>
     </header>

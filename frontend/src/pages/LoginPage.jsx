@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Toast, { notify } from "../components/messages/Toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { login } from "../redux/types";
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -57,8 +62,10 @@ const LoginPage = () => {
     e.preventDefault();
     validateForm();
     if (validated) {
+      dispatch(login(formData));
       notify("Login war erfolgreich!");
       clearFormData();
+      navigate("/");
     }
   };
 

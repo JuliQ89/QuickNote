@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Toast, { notify } from "../components/messages/Toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+import { register } from "../redux/types";
 
 const RegisterPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -64,8 +69,10 @@ const RegisterPage = () => {
     e.preventDefault();
     validateForm();
     if (validated) {
+      dispatch(register(formData));
       notify("Registrierung war erfolgreich!");
       clearFormData();
+      navigate("/");
     }
   };
   return (

@@ -19,6 +19,8 @@ class Note(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     color = models.ForeignKey(Color, on_delete=models.CASCADE)
     title = models.CharField(max_length=256, null=True, blank=True)
+    pos_y = models.FloatField(null=True, blank=True, default=0)
+    pos_x = models.FloatField(null=True, blank=True, default=0)
     description = models.TextField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

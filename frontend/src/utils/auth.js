@@ -1,34 +1,10 @@
 import Cookies from "js-cookie";
 
-import { axiosInstance } from "./axios";
-import {
-  logout,
-  setAccessToken,
-  setRefreshToken,
-} from "../redux/auth/authSlice";
-
 import { store } from "../redux/store";
+import { loginUser, logoutUser } from "../redux/auth/authSlice";
+import { axiosInstance } from "./axios";
 
-export const refreshAccessToken = async () => {
-  const refreshToken = store.getState().auth.refreshToken;
-  try {
-    const response = await axiosInstance.post("/api/token/refresh/", {
-      refresh: refreshToken,
-    });
-    if (response.data) {
-      store.dispatch(setAccessToken(response.data?.access));
-      store.dispatch(setRefreshToken(response.data?.refresh));
-      setTokenCookies(response.data?.access, response.data?.refresh);
-      return response.data?.access;
-    }
-  } catch (error) {
-    console.log(error);
-    store.dispatch(logout());
-    return null;
-  }
-};
-
-export const getTokensCookie = () => {
+export const getTokensFromCookies = () => {
   const access_token = Cookies.get("access_token")
     ? Cookies.get("access_token")
     : null;
@@ -37,17 +13,39 @@ export const getTokensCookie = () => {
     : null;
 
   return {
-    access: access_token,
-    refresh: refresh_token,
+    access_token,
+    refresh_token,
   };
 };
 
-export const setTokenCookies = (access_token, refresh_token) => {
-  Cookies.set("access_token", access_token);
-  Cookies.set("refresh_token", refresh_token);
+export const loginUserOnPageLoad = () => {
+  const { access_token, refresh_token } = getTokensFromCookies();
+  if (access_token && refresh_token) {
+    store.dispatch(loginUser({ access_token, refresh_token }));
+  }
 };
 
-export const removeTokenCookies = () => {
-  Cookies.get("access_token") && Cookies.remove("access_token");
-  Cookies.get("refresh_token") && Cookies.remove("refresh_token");
+export const refreshAccessToken = async () => {
+  const refresh_token = store.getState().auth.refresh_token;
+  try {
+    const response = await axiosInstance.post(
+      "/api/token/refresh/",
+      JSON.stringify({
+        refresh: refresh_token,
+      })
+    );
+    if (response.data) {
+      store.dispatch(
+        loginUser({
+          access_token: response.data?.access,
+          refresh_token: response.data?.refresh,
+        })
+      );
+      return response.data?.access;
+    }
+  } catch (error) {
+    console.log(error);
+    store.dispatch(logoutUser());
+    return null;
+  }
 };

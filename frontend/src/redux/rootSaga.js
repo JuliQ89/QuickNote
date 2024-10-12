@@ -1,7 +1,22 @@
 import { all } from "redux-saga/effects";
 
-import { watchLoginSaga, watchRegisterSaga } from "./auth/authSaga";
+import { watcherLoginSaga, watchRegisterSaga } from "./auth/authSaga";
+import { watcherGetColorsSaga } from "./colors/colorSaga";
+import {
+  watcherGetNotesSaga,
+  watcherCreateNoteSaga,
+  watcherDeleteNoteSaga,
+} from "./notes/noteSaga";
 
-export default function* rootSaga() {
-  yield all([watchLoginSaga(), watchRegisterSaga()]);
+function* rootSaga() {
+  yield all([
+    watcherLoginSaga(),
+    watchRegisterSaga(),
+    watcherGetColorsSaga(),
+    watcherGetNotesSaga(),
+    watcherCreateNoteSaga(),
+    watcherDeleteNoteSaga(),
+  ]);
 }
+
+export default rootSaga;
