@@ -1,26 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faNoteSticky, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { deleteNote } from "../../redux/types";
 
-// RR GG BB
-const getTextColorBasedOnHex = (
-  hex_code,
-  light_color = "#ffffff",
-  dark_color = "#000000"
-) => {
-  const threshold = 130;
-
-  const red = parseInt(String(hex_code).slice(0, 2), 16);
-  const green = parseInt(String(hex_code).slice(2, 4), 16);
-  const blue = parseInt(String(hex_code).slice(4, 6), 16);
-  const colorBrightness = (red * 299 + green * 587 + blue * 114) / 1000;
-
-  return colorBrightness > threshold ? dark_color : light_color;
-};
+import { getTextColorBasedOnHex } from "../../utils/helberFunctions";
+import { deleteNote, updateNote } from "../../redux/types";
 
 const NoteCard = ({ note }) => {
+  const [valuesHaveChanges, setValuesHaveChanges] = useState({
+    title: false,
+    description: false,
+  });
+  const [values, setValues] = useState({
+    title: note.title,
+    description: note.description,
+  });
   const dispatch = useDispatch();
 
   const options = {
@@ -43,9 +37,25 @@ const NoteCard = ({ note }) => {
     dispatch(deleteNote(id));
   };
 
+  const handleCardChanges = (e, id) => {
+    const hasChanges = valuesHaveChanges.title || valuesHaveChanges.description;
+    if (e.ctrlKey && e.key === "s") {
+      e.preventDefault();
+      if (hasChanges) {
+        dispatch(updateNote({ ...values, id }));
+        setValuesHaveChanges({
+          ...valuesHaveChanges,
+          title: false,
+          description: false,
+        });
+      }
+    }
+  };
+
   return (
     <div
       className="noteCard"
+      onKeyDown={(e) => handleCardChanges(e, note.id)}
       style={{
         backgroundColor: `#${note.color.hex_code}aa`,
         top: `${note.pos_y}px`,
@@ -67,7 +77,27 @@ const NoteCard = ({ note }) => {
         >
           <div>
             <FontAwesomeIcon icon={faNoteSticky} />
-            <h2>{note.title}</h2>
+            <h2>
+              <input
+                type="text"
+                name="noteTitle"
+                id="note_title"
+                spellCheck={false}
+                value={values.title}
+                onChange={(e) => {
+                  setValues({ ...values, title: e.target.value });
+                  setValuesHaveChanges({ ...valuesHaveChanges, title: true });
+                }}
+                style={{
+                  color: getTextColorBasedOnHex(
+                    note.color.hex_code,
+                    "var(--lightFont)",
+                    "var(--darkFont)"
+                  ),
+                  fontStyle: valuesHaveChanges.title ? "italic" : null,
+                }}
+              />
+            </h2>
           </div>
           <FontAwesomeIcon
             icon={faTrash}
@@ -86,7 +116,20 @@ const NoteCard = ({ note }) => {
           ),
         }}
       >
-        {note.description}
+        <textarea
+          type="text"
+          name="noteDescription"
+          id="note_description"
+          spellCheck={false}
+          value={values.description}
+          onChange={(e) => {
+            setValues({ ...values, description: e.target.value });
+            setValuesHaveChanges({ ...valuesHaveChanges, description: true });
+          }}
+          style={{
+            fontStyle: valuesHaveChanges.description ? "italic" : null,
+          }}
+        ></textarea>
       </div>
 
       <div

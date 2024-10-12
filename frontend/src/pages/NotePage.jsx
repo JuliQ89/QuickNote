@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getColors, getNotes } from "../redux/types";
+import { getColors, getNotes, getMode } from "../redux/types";
 
 import Sidebar from "../components/notes/Sidebar";
 import ModeToggle from "../components/notes/ModeToggle";
@@ -15,6 +15,7 @@ const NotePage = () => {
   useEffect(() => {
     dispatch(getNotes());
     dispatch(getColors());
+    dispatch(getMode());
   }, []);
 
   return (

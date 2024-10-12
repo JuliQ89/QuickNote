@@ -5,8 +5,9 @@ import {
   getNotesSuccess,
   createNoteSuccess,
   deleteNoteSuccess,
+  updateNoteSuccess,
 } from "./noteSlice";
-import { CREATE_NOTE, DELETE_NOTE, GET_NOTES } from "../types";
+import { CREATE_NOTE, DELETE_NOTE, GET_NOTES, UPDATE_NOTE } from "../types";
 
 // Get Notes
 function* getNotesSaga() {
@@ -55,4 +56,23 @@ function* deleteNoteSaga(action) {
 
 export function* watcherDeleteNoteSaga() {
   yield takeLatest(DELETE_NOTE, deleteNoteSaga);
+}
+
+// Delete Note
+function* updateNoteSaga(action) {
+  try {
+    const { id, ...data } = action.payload;
+    const response = yield call(
+      axiosInstance.put,
+      `/api/notes/update/${id}/`,
+      data
+    );
+    yield put(updateNoteSuccess(response.data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* watcherUpdateNoteSaga() {
+  yield takeLatest(UPDATE_NOTE, updateNoteSaga);
 }

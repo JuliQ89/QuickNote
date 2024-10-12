@@ -28,3 +28,11 @@ class Note(models.Model):
     
     def __str__(self):
         return self.title
+
+
+class Mode(models.Model):
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+    is_dark = models.BooleanField(null=True, blank=True, default=False)
+
+    def __bool__(self):
+        return self.is_dark

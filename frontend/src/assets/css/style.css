@@ -569,7 +569,8 @@ input::placeholder {
   position: absolute;
   border-radius: 8px;
   box-shadow: var(--box-shadow-mode);
-  max-width: 300px;
+  min-width: 275px;
+  resize: both;
 }
 
 /* CARD HEADER */
@@ -582,6 +583,7 @@ input::placeholder {
 
 .notesWrapper .notesWhiteboard .noteCard .noteCardHeader > div {
   display: flex;
+  gap: 0.75rem;
   justify-content: space-between;
   align-items: center;
   font-size: var(--large_Font);
@@ -616,11 +618,40 @@ input::placeholder {
   font-size: var(--large_Font);
 }
 
+.notesWrapper .notesWhiteboard .noteCard .noteCardHeader h2 > input {
+  font-size: var(--large_Font);
+  border: none;
+  outline: none;
+  background-color: transparent;
+  width: 125px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* CARD BODY */
 .notesWrapper .notesWhiteboard .noteCard .noteCardBody {
   border-top-left-radius: inherit;
   border-top-right-radius: inherit;
   padding: 0.5rem 0.75rem;
+}
+
+.notesWrapper .notesWhiteboard .noteCard .noteCardBody > textarea {
+  border: none;
+  outline: none;
+  font-family: var(--poppinsRegular);
+  background-color: transparent;
+  resize: none;
+  width: 100%;
+  min-height: 75px;
+  overflow-y: auto;
+}
+
+.notesWrapper
+  .notesWhiteboard
+  .noteCard
+  .noteCardBody
+  > textarea::-webkit-scrollbar {
+  width: 0;
 }
 
 /* CARD FOOTER */

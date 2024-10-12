@@ -20,6 +20,7 @@ export const getColors = () => ({
 export const GET_NOTES = "GET_NOTES";
 export const CREATE_NOTE = "CREATE_NOTE";
 export const DELETE_NOTE = "DELETE_NOTE";
+export const UPDATE_NOTE = "UPDATE_NOTE";
 
 export const getNotes = () => ({
   type: GET_NOTES,
@@ -32,5 +33,22 @@ export const createNote = (payload) => ({
 
 export const deleteNote = (payload) => ({
   type: DELETE_NOTE,
+  payload,
+});
+
+export const updateNote = (payload) => ({
+  type: UPDATE_NOTE,
+  payload,
+});
+
+export const GET_MODE = "GET_MODE";
+export const UPDATE_MODE = "UPDATE_MODE";
+
+export const getMode = () => ({
+  type: GET_MODE,
+});
+
+export const updateMode = (payload) => ({
+  type: UPDATE_MODE,
   payload,
 });

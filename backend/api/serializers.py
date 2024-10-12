@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from userauths.models import User
-from core.models import Note, Color
+from core.models import Note, Color, Mode
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -39,3 +39,9 @@ class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
         fields = ['title', 'description', 'created_at', 'updated_at', 'pos_y', 'pos_x', 'id', 'color', 'user']
+
+
+class ModeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Mode
+        fields = ['is_dark', 'id']

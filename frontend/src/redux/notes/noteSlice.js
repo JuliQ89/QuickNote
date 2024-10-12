@@ -19,10 +19,20 @@ const noteSlice = createSlice({
         (note) => note.id !== action.payload?.note_id
       );
     },
+    updateNoteSuccess: (state, action) => {
+      let targetNote = state.notes.find(
+        (note) => note.id === action.payload.id
+      );
+      targetNote = { ...action.payload };
+    },
   },
 });
 
-export const { getNotesSuccess, createNoteSuccess, deleteNoteSuccess } =
-  noteSlice.actions;
+export const {
+  getNotesSuccess,
+  createNoteSuccess,
+  deleteNoteSuccess,
+  updateNoteSuccess,
+} = noteSlice.actions;
 
 export default noteSlice.reducer;

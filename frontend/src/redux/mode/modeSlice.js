@@ -8,12 +8,12 @@ const modeSlice = createSlice({
   name: "mode",
   initialState,
   reducers: {
-    setMode: (state, action) => {
-      state.mode = action.payload;
+    setModeSuccess: (state, action) => {
+      state.mode = action.payload ? "dark" : "light";
     },
   },
 });
 
-export const { setMode } = modeSlice.actions;
+export const { setModeSuccess } = modeSlice.actions;
 
 export default modeSlice.reducer;

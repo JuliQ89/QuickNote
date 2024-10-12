@@ -6,7 +6,9 @@ import {
   watcherGetNotesSaga,
   watcherCreateNoteSaga,
   watcherDeleteNoteSaga,
+  watcherUpdateNoteSaga,
 } from "./notes/noteSaga";
+import { watcherGetModeSaga, watcherUpdateModeSaga } from "./mode/modeSaga";
 
 function* rootSaga() {
   yield all([
@@ -16,6 +18,9 @@ function* rootSaga() {
     watcherGetNotesSaga(),
     watcherCreateNoteSaga(),
     watcherDeleteNoteSaga(),
+    watcherUpdateNoteSaga(),
+    watcherGetModeSaga(),
+    watcherUpdateModeSaga(),
   ]);
 }
 

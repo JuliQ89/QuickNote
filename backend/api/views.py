@@ -7,9 +7,9 @@ from rest_framework.response import Response
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .serializers import MyTokenObtainPairSerializer, UserSerializer, ColorSerializer, NoteSerializer
+from .serializers import MyTokenObtainPairSerializer, UserSerializer, ColorSerializer, NoteSerializer, ModeSerializer
 from userauths.models import User
-from core.models import Note, Color
+from core.models import Note, Color, Mode
 
 import uuid
 
@@ -172,3 +172,24 @@ def createUser(request):
 #     "password": "8yhgtdzQ",
 #     "username": "robert.singheiser"
 # }
+
+
+# ===== CRUD (Mode) =====
+@api_view(['GET'])
+def getMode(request):
+    mode, created = Mode.objects.get_or_create(user=request.user)
+    if created:
+        mode.save()
+    serializer = ModeSerializer(mode, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+def updateMode(request):
+    payload = request.data
+
+    mode = Mode.objects.get(user=request.user)
+    mode.is_dark = payload.get('is_dark')
+    mode.save()
+    serializer = ModeSerializer(mode, many=False)
+    return Response(serializer.data)
