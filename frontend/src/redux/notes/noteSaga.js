@@ -58,7 +58,7 @@ export function* watcherDeleteNoteSaga() {
   yield takeLatest(DELETE_NOTE, deleteNoteSaga);
 }
 
-// Delete Note
+// Update Note
 function* updateNoteSaga(action) {
   try {
     const { id, ...data } = action.payload;

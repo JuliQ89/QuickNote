@@ -20,10 +20,12 @@ const noteSlice = createSlice({
       );
     },
     updateNoteSuccess: (state, action) => {
-      let targetNote = state.notes.find(
-        (note) => note.id === action.payload.id
-      );
-      targetNote = { ...action.payload };
+      const { id, ...data } = action.payload;
+      let targetNoteIndex = state.notes.findIndex((note) => note.id === id);
+      state.notes[targetNoteIndex] = {
+        ...state.notes[targetNoteIndex],
+        ...data,
+      };
     },
   },
 });

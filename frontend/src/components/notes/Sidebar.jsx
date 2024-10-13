@@ -1,40 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faAdd } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 
-import ColorButton from "./ColorButton";
-
-const ColorsContainer = () => {
-  const colors = useSelector((store) => store.color.colors);
-
-  return (
-    <div className="colorsContainer">
-      <div className="appendColorButtonContainer">
-        {/* <FontAwesomeIcon icon={faAdd} /> */}
-        <input
-          type="color"
-          name="appendColorButton"
-          defaultValue="#2a2b33"
-          id="append_color_button"
-        />
-      </div>
-      {colors &&
-        colors.map((color) => <ColorButton key={color.id} color={color} />)}
-    </div>
-  );
-};
+import { logoutUser } from "../../redux/auth/authSlice";
+import ColorsContainer from "./ColorsContainer";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   return (
     <div className="notesSidebar">
       <div className="notesSidebarHeader">
         <Link to="/" title="Home">
-          <FontAwesomeIcon icon={faHouse} size="lg" />
+          <FontAwesomeIcon icon={faHouse} />
         </Link>
+        <button title="Logout" onClick={() => dispatch(logoutUser())}>
+          <FontAwesomeIcon icon={faRightFromBracket} />
+        </button>
       </div>
+      <div className="divider"></div>
       <div className="notesSidebarBody">
         <ColorsContainer />
       </div>

@@ -12,9 +12,21 @@ export const register = (payload) => ({
 });
 
 export const GET_COLORS = "GET_COLORS";
+export const CREATE_COLOR = "CREATE_COLOR";
+export const DELETE_COLOR = "DELETE_COLOR";
 
 export const getColors = () => ({
   type: GET_COLORS,
+});
+
+export const createColor = (payload) => ({
+  type: CREATE_COLOR,
+  payload,
+});
+
+export const deleteColor = (payload) => ({
+  type: DELETE_COLOR,
+  payload,
 });
 
 export const GET_NOTES = "GET_NOTES";

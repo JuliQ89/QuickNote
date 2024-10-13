@@ -1,12 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faNoteSticky, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faNoteSticky,
+  faTrash,
+  faBrush,
+  faArrowsRotate,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { getTextColorBasedOnHex } from "../../utils/helberFunctions";
 import { deleteNote, updateNote } from "../../redux/types";
 
 const NoteCard = ({ note }) => {
+  const targetCard = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [cardKoordinates, setCardKoordinates] = useState({
+    pos_y: note.pos_y,
+    pos_x: note.pos_x,
+  });
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+
+  const dispatch = useDispatch();
+
   const [valuesHaveChanges, setValuesHaveChanges] = useState({
     title: false,
     description: false,
@@ -15,8 +31,6 @@ const NoteCard = ({ note }) => {
     title: note.title,
     description: note.description,
   });
-  const dispatch = useDispatch();
-
   const options = {
     month: "2-digit",
     day: "2-digit",
@@ -32,6 +46,36 @@ const NoteCard = ({ note }) => {
     "de-de",
     options
   );
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setDragStart({
+      x: e.clientX - cardKoordinates.pos_x,
+      y: e.clientY - cardKoordinates.pos_y,
+    });
+  };
+
+  const handleMouseMove = (e) => {
+    if (isDragging) {
+      setCardKoordinates({
+        pos_x: e.clientX - dragStart.x,
+        pos_y: e.clientY - dragStart.y,
+      });
+    }
+  };
+
+  const handleMouseUp = () => {
+    if (isDragging) {
+      setIsDragging(false);
+      dispatch(
+        updateNote({
+          pos_x: cardKoordinates.pos_x,
+          pos_y: cardKoordinates.pos_y,
+          id: note.id,
+        })
+      );
+    }
+  };
 
   const handleDeleteNote = (id) => {
     dispatch(deleteNote(id));
@@ -54,12 +98,16 @@ const NoteCard = ({ note }) => {
 
   return (
     <div
-      className="noteCard"
+      ref={targetCard}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
       onKeyDown={(e) => handleCardChanges(e, note.id)}
+      className="noteCard"
       style={{
         backgroundColor: `#${note.color.hex_code}aa`,
-        top: `${note.pos_y}px`,
-        left: `${note.pos_x}px`,
+        top: `${cardKoordinates.pos_y}px`,
+        left: `${cardKoordinates.pos_x}px`,
       }}
     >
       <div
@@ -99,23 +147,22 @@ const NoteCard = ({ note }) => {
               />
             </h2>
           </div>
-          <FontAwesomeIcon
-            icon={faTrash}
-            onClick={() => handleDeleteNote(note.id)}
-          />
+          <div className="cardHeaderOptions">
+            <FontAwesomeIcon
+              className="themeNoteButton"
+              icon={faBrush}
+              onClick={() => console.log("change color")}
+            />
+            <FontAwesomeIcon
+              className="deleteNoteButton"
+              icon={faTrash}
+              onClick={() => handleDeleteNote(note.id)}
+            />
+          </div>
         </div>
       </div>
 
-      <div
-        className="noteCardBody"
-        style={{
-          color: getTextColorBasedOnHex(
-            note.color.hex_code,
-            "#DBDBE4",
-            "#2D2D33"
-          ),
-        }}
-      >
+      <div className="noteCardBody">
         <textarea
           type="text"
           name="noteDescription"
@@ -128,6 +175,11 @@ const NoteCard = ({ note }) => {
           }}
           style={{
             fontStyle: valuesHaveChanges.description ? "italic" : null,
+            color: getTextColorBasedOnHex(
+              note.color.hex_code,
+              "#DBDBE4",
+              "#2D2D33"
+            ),
           }}
         ></textarea>
       </div>
@@ -142,7 +194,12 @@ const NoteCard = ({ note }) => {
           ),
         }}
       >
-        <small>{created}</small>
+        <small>
+          <FontAwesomeIcon icon={faPlus} /> {created}
+        </small>
+        <small>
+          <FontAwesomeIcon icon={faArrowsRotate} /> {updated}
+        </small>
       </div>
     </div>
   );

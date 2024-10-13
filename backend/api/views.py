@@ -54,7 +54,7 @@ def createColor(request):
 def deleteColor(request, pk:int):
     color = get_object_or_404(Color, id=pk, user=request.user)
     color.delete()
-    return Response({'success':True})
+    return Response({"color_id": pk})
 
 
 @api_view(['PUT'])
@@ -104,6 +104,8 @@ def createNote(request):
         color=color,
         title=payload['title'],
         description=payload['description'],
+        pos_y=payload.get('pos_y', 0),
+        pos_x=payload.get('pos_x', 0)
     )
     serializer = NoteSerializer(note)
     return Response(serializer.data, status=status.HTTP_201_CREATED)
