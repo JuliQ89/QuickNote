@@ -402,6 +402,7 @@ input::placeholder {
   background-color: var(--whiteboard-dark-bg);
   position: relative;
 
+  background-position: center;
   background-size: var(--square-size) var(--square-size); /* Square Size */
 }
 
@@ -441,6 +442,10 @@ input::placeholder {
 
 .notesWrapper[data-mode="light"] {
   --box-shadow-mode: 3px 4px 12px -1px rgba(0, 0, 0, 0.25);
+}
+
+.notesWrapper.noSquares {
+  background-image: none !important;
 }
 
 /* NOTES SIDEBAR CONTAINER */
@@ -677,6 +682,55 @@ input::placeholder {
   cursor: grab !important;
 }
 
+/* NOTE CARD CONTEXT MENU */
+.noteCardContextMenu {
+  --context-bg-dark-mode: var(--white);
+  --context-bg-light-mode: var(--darkgrey);
+
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 5px);
+  /* background-color: var(--lightgrey); */
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.75rem;
+  box-shadow: var(--box-shadow-mode);
+  border-radius: 6px;
+  cursor: default;
+
+  transform-origin: right center;
+  animation: contextPopUpAnim 0.25s ease-in-out;
+}
+
+.notesWrapper[data-mode="dark"] .noteCardContextMenu {
+  background-color: var(--context-bg-dark-mode);
+}
+.notesWrapper[data-mode="light"] .noteCardContextMenu {
+  background-color: var(--context-bg-light-mode);
+}
+
+@keyframes contextPopUpAnim {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.noteCardContextMenu .noteCardContextColor {
+  --color-diameter: 20px;
+
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 100%;
+  width: var(--color-diameter);
+  height: var(--color-diameter);
+  box-shadow: var(--box-shadow-mode);
+}
+
 /* CARD HEADER */
 .notesWrapper .notesWhiteboard .noteCard .noteCardHeader {
   border-top-left-radius: inherit;
@@ -775,6 +829,18 @@ input::placeholder {
   font-family: var(--poppinsLight);
   font-size: var(--smaller_Font);
   opacity: 0.75;
+}
+
+/* WHITEBOARD OPTIONS CONTAINER */
+.whiteboardOptionContainer {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
 }
 
 /* ~~~~~~~~~~ ~~~~~~~~~~~ ~~~~~~~~~~ */

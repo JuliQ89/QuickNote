@@ -40,6 +40,7 @@ axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
     const prevRequest = error?.config;
+    console.log("response");
     if (error?.response?.status === 401 && !prevRequest?.sent) {
       prevRequest.sent = true;
       const new_access_token = await refreshAccessToken();

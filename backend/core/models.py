@@ -36,3 +36,11 @@ class Mode(models.Model):
 
     def __bool__(self):
         return self.is_dark
+
+
+class WhiteBoard(models.Model):
+    user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
+    square_size = models.PositiveIntegerField(default=25, null=True, blank=True)
+
+    def __int__(self):
+        return self.square_size

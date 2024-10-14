@@ -12,7 +12,11 @@ import {
 import { getTextColorBasedOnHex } from "../../utils/helberFunctions";
 import { deleteNote, updateNote } from "../../redux/types";
 
+import NoteCardContext from "../context/NoteCardContext";
+
 const NoteCard = ({ note }) => {
+  const [modalIsOpened, setModalIsOpened] = useState(false);
+
   const targetCard = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [cardKoordinates, setCardKoordinates] = useState({
@@ -110,6 +114,12 @@ const NoteCard = ({ note }) => {
         left: `${cardKoordinates.pos_x}px`,
       }}
     >
+      <NoteCardContext
+        modalIsOpened={modalIsOpened}
+        setModalIsOpened={setModalIsOpened}
+        note={note}
+      />
+
       <div
         className="noteCardHeader"
         style={{ backgroundColor: `#${note.color.hex_code}` }}
@@ -132,6 +142,7 @@ const NoteCard = ({ note }) => {
                 id="note_title"
                 spellCheck={false}
                 value={values.title}
+                onMouseDown={(e) => e.stopPropagation()}
                 onChange={(e) => {
                   setValues({ ...values, title: e.target.value });
                   setValuesHaveChanges({ ...valuesHaveChanges, title: true });
@@ -151,7 +162,7 @@ const NoteCard = ({ note }) => {
             <FontAwesomeIcon
               className="themeNoteButton"
               icon={faBrush}
-              onClick={() => console.log("change color")}
+              onClick={() => setModalIsOpened((prevState) => !prevState)}
             />
             <FontAwesomeIcon
               className="deleteNoteButton"
@@ -169,6 +180,7 @@ const NoteCard = ({ note }) => {
           id="note_description"
           spellCheck={false}
           value={values.description}
+          onMouseDown={(e) => e.stopPropagation()}
           onChange={(e) => {
             setValues({ ...values, description: e.target.value });
             setValuesHaveChanges({ ...valuesHaveChanges, description: true });

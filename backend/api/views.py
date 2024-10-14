@@ -125,7 +125,11 @@ def updateNote(request, pk:uuid.UUID):
     payload = request.data
     note = get_object_or_404(Note, id=pk, user=request.user)
     for attr, value in payload.items():
-        setattr(note, attr, value)
+        if attr == "color":
+            color = get_object_or_404(Color, id=value.get("id"))
+            setattr(note, attr, color)
+        else:
+            setattr(note, attr, value)
     note.save()
     serializer = NoteSerializer(note)
     return Response(serializer.data)
