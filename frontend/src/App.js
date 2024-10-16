@@ -14,6 +14,7 @@ import { loginUserOnPageLoad } from "./utils/auth";
 function App() {
   useEffect(() => {
     loginUserOnPageLoad();
+    console.log(process.env.REACT_APP_BACKEND_URL);
   }, []);
 
   return (
