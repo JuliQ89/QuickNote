@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,18 +9,15 @@ import { updateMode } from "../../redux/types";
 const ModeToggle = () => {
   const mode = useSelector((state) => state.mode.mode);
   const dispatch = useDispatch();
-  const isDark = mode === "dark" ? true : false;
+  const isDark = mode.is_dark;
 
   return (
     <div className="modeToggle">
-      <label
-        htmlFor="mode_toggle"
-        className={`${mode === "light" ? "light" : "dark"}`}
-      >
-        {mode === "light" ? (
-          <FontAwesomeIcon icon={faSun} />
-        ) : (
+      <label htmlFor="mode_toggle" className={`${isDark ? "dark" : "light"}`}>
+        {isDark ? (
           <FontAwesomeIcon icon={faMoon} />
+        ) : (
+          <FontAwesomeIcon icon={faSun} />
         )}
       </label>
       <input
@@ -28,13 +25,14 @@ const ModeToggle = () => {
         name="modeToggle"
         id="mode_toggle"
         checked={isDark}
-        onChange={(e) =>
+        onChange={(e) => {
           dispatch(
             updateMode({
               is_dark: !isDark,
+              id: mode.id,
             })
-          )
-        }
+          );
+        }}
       />
     </div>
   );

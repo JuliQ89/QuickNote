@@ -455,7 +455,7 @@ input::placeholder {
 
   position: absolute;
   z-index: 999;
-  left: 0.45rem;
+  left: 0.5rem;
   top: 50%;
   transform: translateY(-50%);
   box-shadow: var(--box-shadow-mode);
@@ -833,10 +833,6 @@ input::placeholder {
 
 /* WHITEBOARD OPTIONS CONTAINER */
 .whiteboardOptionContainer {
-  position: absolute;
-  top: 1.25rem;
-  left: 1.25rem;
-  z-index: 999;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -854,14 +850,15 @@ input::placeholder {
 }
 
 .modeToggle > label {
-  --toggle-width: 30px;
-  --toggle-height: 30px;
+  --toggle-width: 40px;
+  --toggle-height: 40px;
 
   cursor: pointer;
   background-color: var(--darkgrey);
   box-shadow: var(--box-shadow-mode);
   height: var(--toggle-height);
   width: var(--toggle-width);
+  font-size: var(--large_Font);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -987,4 +984,183 @@ input::placeholder {
   filter: blur(35px);
   background: radial-gradient(rgba(34, 154, 223, 0.5) 45%, transparent 70%)
     no-repeat;
+}
+
+/* ~~~~~~~~~~ ~~~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ HomePage ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~~~ ~~~~~~~~~~ */
+
+/* HTML CHECKBOX */
+.htmlCheckbox {
+  --checkbox-diameter: 22px;
+  width: var(--checkbox-diameter);
+  height: var(--checkbox-diameter);
+  color: dodgerblue;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  appearance: none;
+  background: none;
+  border: 0;
+  outline: 0;
+  flex-grow: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 300ms;
+  box-shadow: var(--box-shadow-mode);
+  cursor: pointer;
+}
+
+.htmlCheckbox::before {
+  content: "";
+  color: transparent;
+  display: block;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+  border: none;
+  background-color: transparent;
+  background-size: contain;
+  box-shadow: var(--box-shadow-mode);
+}
+
+.htmlCheckbox:checked {
+  background-color: var(--normalBlue);
+}
+
+.htmlCheckbox:checked::before {
+  box-shadow: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E %3Cpath d='M15.88 8.29L10 14.17l-1.88-1.88a.996.996 0 1 0-1.41 1.41l2.59 2.59c.39.39 1.02.39 1.41 0L17.3 9.7a.996.996 0 0 0 0-1.41c-.39-.39-1.03-.39-1.42 0z' fill='%23fff'/%3E %3C/svg%3E");
+}
+
+/* HTML RANGE */
+.htmlRange {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 200px;
+  background-color: transparent;
+}
+
+.htmlRange::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 10px;
+  background: var(--normalBlue);
+  box-shadow: var(--box-shadow-mode);
+}
+
+.htmlRange::-moz-range-track {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 10px;
+  background: var(--normalBlue);
+  box-shadow: var(--box-shadow-mode);
+}
+
+.htmlRange::-ms-track {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 10px;
+  background: var(--normalBlue);
+  box-shadow: var(--box-shadow-mode);
+}
+
+.htmlRange::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  border: 2px solid var(--normalBlue);
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  bottom: 8px;
+  background: var(--normalBlue)
+    url("http://codemenatalie.com/wp-content/uploads/2019/09/slider-thumb.png")
+    center no-repeat;
+  background-size: 50%;
+  box-shadow: var(--box-shadow-mode);
+  cursor: pointer;
+}
+
+.htmlRange::-moz-range-thumb {
+  -moz-appearance: none;
+  appearance: none;
+  border: 2px solid var(--normalBlue);
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  bottom: 8px;
+  background: var(--normalBlue)
+    url("http://codemenatalie.com/wp-content/uploads/2019/09/slider-thumb.png")
+    center no-repeat;
+  background-size: 50%;
+  box-shadow: var(--box-shadow-mode);
+  cursor: pointer;
+}
+
+.htmlRange::-ms-thumb {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 2px solid var(--normalBlue);
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  bottom: 8px;
+  background: var(--normalBlue)
+    url("http://codemenatalie.com/wp-content/uploads/2019/09/slider-thumb.png")
+    center no-repeat;
+  background-size: 50%;
+  box-shadow: var(--box-shadow-mode);
+  cursor: pointer;
+}
+
+/* ~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ WHITEBOARD DROPDOWN ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~~~~~~~~~~~~~~ ~~~~~~~~~~ */
+.whiteBoardDropdown {
+  position: absolute;
+  z-index: 999;
+  background-color: var(--white);
+  box-shadow: var(--box-shadow-mode);
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.whiteBoardDropdown.opened {
+  padding: 0.65rem;
+  border-radius: 8px;
+  align-items: flex-start;
+  width: fit-content;
+  height: fit-content;
+}
+
+.whiteBoardDropdown:not(.opened) .whiteBoardDropdownChildrenContainer {
+  display: none;
+}
+
+.notesWrapper[data-mode="light"] .whiteBoardDropdown {
+  background-color: var(--darkgrey);
+  color: var(--lightFont);
+}
+
+.notesWrapper[data-mode="dark"] .whiteBoardDropdown {
+  background-color: var(--white);
+  color: var(--darkFont);
+}
+
+.whiteBoardDropdown .whiteBoardDropdownIconContainer {
+  font-size: var(--large_Font);
+  cursor: pointer;
 }

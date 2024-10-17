@@ -41,6 +41,7 @@ class Mode(models.Model):
 class WhiteBoard(models.Model):
     user = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
     square_size = models.PositiveIntegerField(default=25, null=True, blank=True)
+    has_squares = models.BooleanField(default=True, null=True, blank=True)
 
     def __int__(self):
         return self.square_size

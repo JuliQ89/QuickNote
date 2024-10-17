@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import MyTokenObtainPairView, getColors, getColor, createColor, deleteColor, updateColor, getNotes, getNote, createNote, deleteNote, updateNote, getUsers, getUser, createUser, getMode, updateMode
+from .views import MyTokenObtainPairView, getColors, getColor, createColor, deleteColor, updateColor, getNotes, getNote, createNote, deleteNote, updateNote, getUsers, getUser, createUser, getMode, updateMode, getWhiteBoard, updateWhiteBoard
 
 from rest_framework_simplejwt.views import (
     TokenRefreshView,
@@ -30,7 +30,11 @@ urlpatterns = [
 
     # == MODE ==
     path('mode/', getMode, name='api_get_mode'),
-    path('mode/update/', updateMode, name='api_update_mode'),
+    path('mode/update/<str:pk>/', updateMode, name='api_update_mode'),
+
+    # == WHITEBOARD ==
+    path('white_board/', getWhiteBoard, name='api_get_white_board'),
+    path('white_board/update/<str:pk>/', updateWhiteBoard, name='api_update_white_board'),
 
     # JWT Token
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),

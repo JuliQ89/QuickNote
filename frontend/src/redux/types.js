@@ -64,3 +64,15 @@ export const updateMode = (payload) => ({
   type: UPDATE_MODE,
   payload,
 });
+
+export const GET_WHITEBOARD = "GET_WHITEBOARD";
+export const UPDATE_WHITEBOARD = "UPDATE_WHITEBOARD";
+
+export const getWhiteBoard = () => ({
+  type: GET_WHITEBOARD,
+});
+
+export const updateWhiteBoard = (payload) => ({
+  type: UPDATE_WHITEBOARD,
+  payload,
+});

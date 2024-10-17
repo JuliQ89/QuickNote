@@ -8,7 +8,7 @@ import { GET_MODE, UPDATE_MODE } from "../types";
 function* getModeSaga() {
   try {
     const response = yield call(axiosInstance.get, "/api/mode/");
-    yield put(setModeSuccess(response.data?.is_dark));
+    yield put(setModeSuccess(response.data));
   } catch (error) {
     console.log(error);
   }
@@ -23,11 +23,10 @@ function* updateModeSaga(action) {
   try {
     const response = yield call(
       axiosInstance.put,
-      "/api/mode/update/",
+      `/api/mode/update/${action.payload.id}/`,
       action.payload
     );
-    yield put(setModeSuccess(response.data?.is_dark));
-    console.log(response.data);
+    yield put(setModeSuccess(response.data));
   } catch (error) {
     console.log(error);
   }

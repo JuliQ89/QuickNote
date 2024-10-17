@@ -7,9 +7,9 @@ from rest_framework.response import Response
 
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from .serializers import MyTokenObtainPairSerializer, UserSerializer, ColorSerializer, NoteSerializer, ModeSerializer
+from .serializers import MyTokenObtainPairSerializer, UserSerializer, ColorSerializer, NoteSerializer, ModeSerializer, WhiteBoardSerializer
 from userauths.models import User
-from core.models import Note, Color, Mode
+from core.models import Note, Color, Mode, WhiteBoard
 
 import uuid
 
@@ -182,6 +182,7 @@ def createUser(request):
 
 # ===== CRUD (Mode) =====
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getMode(request):
     mode, created = Mode.objects.get_or_create(user=request.user)
     if created:
@@ -191,11 +192,36 @@ def getMode(request):
 
 
 @api_view(['PUT'])
-def updateMode(request):
+@permission_classes([IsAuthenticated])
+def updateMode(request, pk:int):
     payload = request.data
 
-    mode = Mode.objects.get(user=request.user)
+    mode = Mode.objects.get(user=request.user, id=pk)
     mode.is_dark = payload.get('is_dark')
     mode.save()
     serializer = ModeSerializer(mode, many=False)
+    return Response(serializer.data)
+
+
+
+# ===== CRUD (WhiteBoard) =====
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getWhiteBoard(request):
+    whiteBoard, created = WhiteBoard.objects.get_or_create(user=request.user)
+    if created:
+        whiteBoard.save()
+    serializer = WhiteBoardSerializer(whiteBoard)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+def updateWhiteBoard(request, pk:int):
+    payload = request.data
+
+    whiteBoard = WhiteBoard.objects.get(user=request.user, id=pk)
+    for attr, value in payload.items():
+        setattr(whiteBoard, attr, value)
+    whiteBoard.save()
+    serializer = WhiteBoardSerializer(whiteBoard)
     return Response(serializer.data)

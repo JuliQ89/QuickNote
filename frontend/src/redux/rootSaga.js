@@ -13,6 +13,10 @@ import {
   watcherUpdateNoteSaga,
 } from "./notes/noteSaga";
 import { watcherGetModeSaga, watcherUpdateModeSaga } from "./mode/modeSaga";
+import {
+  watcherGetWhiteBoardSaga,
+  watcherUpdateWhiteBoardSaga,
+} from "./whiteboard/whiteboardSaga";
 
 function* rootSaga() {
   yield all([
@@ -27,6 +31,8 @@ function* rootSaga() {
     watcherUpdateNoteSaga(),
     watcherGetModeSaga(),
     watcherUpdateModeSaga(),
+    watcherGetWhiteBoardSaga(),
+    watcherUpdateWhiteBoardSaga(),
   ]);
 }
 
