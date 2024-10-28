@@ -674,7 +674,7 @@ input::placeholder {
   /* transform: translate(-50%, -50%); */
   border-radius: 8px;
   box-shadow: var(--box-shadow-mode);
-  min-width: 275px;
+  min-width: 325px;
   resize: both;
 }
 
@@ -808,12 +808,23 @@ input::placeholder {
   background-color: transparent;
   resize: none;
   width: 100%;
-  min-height: 75px;
+  min-height: 125px;
   overflow-y: auto;
+  padding-right: 0.4rem;
+}
+
+.notesWhiteboard .noteCard .noteCardBody > textarea::-webkit-scrollbar-track {
+  border-radius: 10px;
 }
 
 .notesWhiteboard .noteCard .noteCardBody > textarea::-webkit-scrollbar {
-  width: 0;
+  width: 4px;
+}
+
+.notesWhiteboard .noteCard .noteCardBody > textarea::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgba(50, 50, 50, 0.5);
+  cursor: default;
 }
 
 /* CARD FOOTER */
