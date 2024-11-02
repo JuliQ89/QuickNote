@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 
 import { store } from "../redux/store";
-import { loginUser, logoutUser } from "../redux/auth/authSlice";
+import { loginUser } from "../redux/auth/authSlice";
 import { axiosInstance } from "./axios";
 
 export const getTokensFromCookies = () => {
