@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import NotePage from "./pages/NotePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import NotFound from "./components/404/NotFound";
 
 import { loginUserOnPageLoad } from "./utils/auth";
 
@@ -53,6 +54,14 @@ function App() {
                   <NotePage />
                 </MainContainer>
               </PrivateRoutes>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <MainContainer header={true}>
+                <NotFound />
+              </MainContainer>
             }
           />
         </Routes>

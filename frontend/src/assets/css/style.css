@@ -160,8 +160,17 @@ input::placeholder {
 }
 
 .header > .headerLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
   text-decoration: none;
   color: var(--darkBlue);
+}
+
+.header > .headerLogo > img {
+  height: 38px;
+  width: 38px;
 }
 
 .header .headerNav {
@@ -1174,4 +1183,184 @@ input::placeholder {
 .whiteBoardDropdown .whiteBoardDropdownIconContainer {
   font-size: var(--large_Font);
   cursor: pointer;
+}
+
+/* ~~~~~~~~~~ ~~~~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ NOT FOUND ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~~~~ ~~~~~~~~~~ */
+.notFoundContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.notFoundContainer > h1 {
+  font-size: 125px;
+  font-family: var(--poppinsBlack);
+  background: url(../images/weltraum.jpg) no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-clip: text;
+  color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 180px;
+}
+
+.notFoundContainer > h3 {
+  text-transform: uppercase;
+  font-family: var(--poppinsSemiBold);
+  font-size: var(--larger_Font);
+  color: var(--darkFont);
+}
+
+.notFoundContainer > p {
+  font-size: var(--regular_Font);
+  color: var(--darkFont);
+  opacity: 0.9;
+  max-width: 550px;
+  text-align: center;
+  margin: 0.75rem 0;
+}
+
+.notFoundContainer > a {
+  text-decoration: none;
+  color: var(--white);
+  background-color: var(--normalBlue);
+  border-radius: 20rem;
+  padding: 0.55rem 1rem;
+  cursor: pointer;
+  font-size: var(--regular_Font);
+  text-transform: uppercase;
+  transition: 0.25s ease;
+
+  &:hover {
+    background-color: var(--darkBlue);
+  }
+}
+
+/* ~~~~~~~~~~ ~~~~~~~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ CARD SECTION ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~~~~~~~ ~~~~~~~~~~ */
+.toolCardsWrapper {
+  width: 100%;
+  padding: 1.5rem;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.toolCardsWrapper .toolCardsHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.toolCardsWrapper .toolCardsContainer {
+  margin-top: 3.5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.toolCardsWrapper
+  .toolCardsContainer
+  .toolCard:nth-child(4n + 1)
+  .toolCardIcon {
+  background-color: rgba(97, 161, 251, 0.15);
+}
+.toolCardsWrapper
+  .toolCardsContainer
+  .toolCard:nth-child(4n + 2)
+  .toolCardIcon {
+  background-color: rgba(238, 97, 251, 0.15);
+}
+.toolCardsWrapper
+  .toolCardsContainer
+  .toolCard:nth-child(4n + 3)
+  .toolCardIcon {
+  background-color: rgba(251, 202, 97, 0.15);
+}
+.toolCardsWrapper
+  .toolCardsContainer
+  .toolCard:nth-child(4n + 4)
+  .toolCardIcon {
+  background-color: rgba(97, 251, 130, 0.15);
+}
+.toolCardsWrapper
+  .toolCardsContainer
+  .toolCard:nth-child(4n + 1)
+  .toolCardIcon
+  > svg {
+  fill: rgb(85, 141, 219);
+}
+.toolCardsWrapper
+  .toolCardsContainer
+  .toolCard:nth-child(4n + 2)
+  .toolCardIcon
+  > svg {
+  fill: rgb(201, 81, 212);
+}
+.toolCardsWrapper
+  .toolCardsContainer
+  .toolCard:nth-child(4n + 3)
+  .toolCardIcon
+  > svg {
+  fill: rgb(211, 170, 82);
+}
+.toolCardsWrapper
+  .toolCardsContainer
+  .toolCard:nth-child(4n + 4)
+  .toolCardIcon
+  > svg {
+  fill: rgb(81, 206, 108);
+}
+
+.toolCardsWrapper .toolCardsContainer .toolCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: var(--box-shadow-card);
+  background-color: var(--white);
+  border-radius: 8px;
+  width: 300px;
+  min-height: 325px;
+}
+
+.toolCardsWrapper .toolCardsContainer .toolCard > .toolCardIcon {
+  width: 65px;
+  height: 65px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.toolCardsWrapper .toolCardsContainer .toolCard > .toolCardIcon > svg {
+  width: 35px;
+  height: 35px;
+}
+
+.toolCardsWrapper .toolCardsContainer .toolCard > h2 {
+  color: var(--darkFont);
+  font-size: var(--large_Font);
+}
+
+.toolCardsWrapper .toolCardsContainer .toolCard > p {
+  text-align: center;
+  color: rgba(19, 21, 26, 0.75);
+  font-size: var(--small_Font);
 }

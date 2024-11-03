@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import logo from "../../assets/images/sticky-note.png";
 
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../redux/auth/authSlice";
@@ -22,6 +23,7 @@ const Header = () => {
   return (
     <header className="header">
       <Link to="/" className="headerLogo">
+        <img src={logo} alt="" />
         <h2>QuickNote</h2>
       </Link>
 
