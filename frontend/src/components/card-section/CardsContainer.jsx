@@ -41,8 +41,9 @@ const CardsContainer = () => {
         <p>Entdecken Sie auf dieser Seite, was Sie tun können</p>
       </div>
       <div className="toolCardsContainer">
-        {cardsContent.map((card) => (
+        {cardsContent.map((card, i) => (
           <Card
+            key={i}
             icon={card.icon}
             title={card.title}
             description={card.description}
