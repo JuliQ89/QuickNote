@@ -25,7 +25,7 @@ function App() {
             exact
             path="/"
             element={
-              <MainContainer header={true}>
+              <MainContainer header={true} footer={true}>
                 <HomePage />
               </MainContainer>
             }
@@ -33,7 +33,7 @@ function App() {
           <Route
             path="/login"
             element={
-              <MainContainer header={true}>
+              <MainContainer header={true} footer={true}>
                 <LoginPage />
               </MainContainer>
             }
@@ -41,7 +41,7 @@ function App() {
           <Route
             path="/register"
             element={
-              <MainContainer header={true}>
+              <MainContainer header={true} footer={true}>
                 <RegisterPage />
               </MainContainer>
             }
@@ -50,7 +50,7 @@ function App() {
             path="/notes"
             element={
               <PrivateRoutes>
-                <MainContainer header={false}>
+                <MainContainer header={false} footer={false}>
                   <NotePage />
                 </MainContainer>
               </PrivateRoutes>
@@ -59,7 +59,7 @@ function App() {
           <Route
             path="*"
             element={
-              <MainContainer header={true}>
+              <MainContainer header={true} footer={true}>
                 <NotFound />
               </MainContainer>
             }
