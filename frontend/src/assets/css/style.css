@@ -43,11 +43,14 @@
 }
 
 html,
-body,
+body {
+  height: 100%;
+}
+
 #root,
 .wrapper,
 .mainContainer {
-  height: 100%;
+  min-height: 100vh;
 }
 
 body {
@@ -266,7 +269,7 @@ input::placeholder {
 /* ~~~~~~~~~~ ~~~~~~~~~~~~ ~~~~~~~~~~ */
 .privateRouteContainer {
   padding: 1.25rem;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -298,7 +301,7 @@ input::placeholder {
 /* ~~~~~~~~~~ LOGIN / REGISTER ~~~~~~~~~~ */
 /* ~~~~~~~~~~ ~~~~~~~~~~~~~~~~ ~~~~~~~~~~ */
 .formularWrapper {
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -1190,7 +1193,7 @@ input::placeholder {
 /* ~~~~~~~~~~ ~~~~~~~~~ ~~~~~~~~~~ */
 .notFoundContainer {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1363,4 +1366,53 @@ input::placeholder {
   text-align: center;
   color: rgba(19, 21, 26, 0.75);
   font-size: var(--small_Font);
+}
+
+/* ~~~~~~~~~~ ~~~~~~ ~~~~~~~~~~ */
+/* ~~~~~~~~~~ FOOTER ~~~~~~~~~~ */
+/* ~~~~~~~~~~ ~~~~~~ ~~~~~~~~~~ */
+.footer {
+  margin-top: 1.75rem;
+  width: 100%;
+  padding: 1.5rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.footer .footerLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  color: var(--darkBlue);
+}
+
+.footer .footerLogo span {
+  font-size: var(--small_Font);
+  font-family: var(--poppinsSemiBold);
+}
+
+.footer .footerLogo > img {
+  height: 27px;
+  width: 27px;
+}
+
+.footer .footerLinksList {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.footer .footerLinksList a {
+  text-decoration: none;
+  color: var(--darkBlue);
+  font-size: var(--smaller_Font);
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
