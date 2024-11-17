@@ -47,7 +47,7 @@ services:
     networks:
       - network_quicknote
     ports:
-      - 5432:5432
+      - :5432
 
 volumes:
   postgres-data:
